@@ -1,0 +1,7 @@
+---
+splunk_fqdn: 'https://mgmisbspk002.mcip.usmc.mil:8088'
+hec_and_ca_secret: vector-splunk-hec-token
+roles:
+  - collect-audit-logs
+  - collect-application-logs
+  - collect-infrastructure-logs

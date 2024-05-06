@@ -1,0 +1,24 @@
+---
+apiVersion: logging.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: splunk-log-forwarder 
+  namespace: openshift-logging 
+spec:
+  serviceAccountName: splunk
+  outputs:
+    - name: splunk-receiver
+      secret:
+        name: {{ $.Values.hec_and_ca_secret }}
+      type: splunk 
+      url: {{ $.Values.splunk_fqdn }}
+      tls: 
+        insecureSkipVerify: false
+  pipelines: 
+    - inputRefs:
+        - application
+        - infrastructure
+        - audit
+      name: splunk-receiver
+      outputRefs:
+        - splunk-receiver
