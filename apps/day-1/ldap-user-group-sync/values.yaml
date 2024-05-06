@@ -1,0 +1,9 @@
+---
+ldap_server: 'ldaps://$SPLUNK_FQDN:636'
+baseDN: 'ou=users,dc=example,dc=redhat,dc=com'
+bindDN: 'cn=ldap-bind,ou=users,dc=example,dc=redhat,dc=com'
+cronjob_schedule: '*/15 * * * *'
+
+rbac_rules:
+  - ad_group: openshift-admins
+    ocp_role: cluster-admin
