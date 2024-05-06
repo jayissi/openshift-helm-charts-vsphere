@@ -1,0 +1,44 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: {{ $.Values.acm_policy_name }}
+  namespace: {{ $.Values.policy_namespace | default "default" }}
+spec:
+  disabled: false
+  remediationAction: {{ $.Values.remediation_action | default "inform" }}
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: {{ $.Values.acm_policy_name }}
+        spec:
+          remediationAction: {{ $.Values.remediation_action | default "inform" }}
+          severity: {{ $.Values.severity | default "low" }}
+          object-templates:
+          {{- range .Values.machines }}
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: machineconfiguration.openshift.io/v1
+                kind: MachineConfigPool
+                metadata:
+                  name: {{ . }}
+                  labels: 
+                    pools.operator.machineconfiguration.openshift.io/{{ . }}: ""
+                spec:
+                  machineConfigSelector:
+                    matchExpressions:
+                      - key: machineconfiguration.openshift.io/role
+                        operator: In
+                        values: 
+                        - worker
+                        - {{ . }}
+                  nodeSelector:
+                    matchLabels:
+                  {{- if eq . "infra" }}
+                      node-role.kubernetes.io/cluster-{{ . }}: ""
+                  {{- else }}
+                      node-role.kubernetes.io/{{ . }}: ""
+                  {{- end -}}
+           {{- end -}}

@@ -1,0 +1,61 @@
+---
+acm_policy_name: compliance-scan
+
+#
+# policy_namespce defaults to 'default' namespace
+#
+policy_namespace: acm-policy
+
+#
+# remediation_action defaults to 'inform' but, can be set to 'enforce'
+#
+remediation_action: enforce
+
+#
+# severity defaults to 'low' but, can be set to 'medium' or 'high'
+#
+severity: high
+
+compliance_scan_storage_class_name: mgmt-nfsstg03
+
+apply_auto_remediations: true
+
+node:
+  - role: master
+    name: stig-scan
+    enable_scan_setting: true
+    selector: |-
+      node-role.kubernetes.io/master: ''
+#    tolerations:
+#    - effect: NoSchedule
+#      key: node-role.kubernetes.io/master
+#      operator: Exists
+#    - effect: NoExecute
+#      key: node.kubernetes.io/not-ready
+#      operator: Exists
+#    - effect: NoExecute
+#      key: node.kubernetes.io/unreachable
+#      operator: Exists
+#    - effect: NoSchedule
+#      key: node.kubernetes.io/memory-pressure
+#      operator: Exists
+    scan_profile:
+    - name: rhcos4-stig
+
+  - role: worker
+    name: stig-scan
+    enable_scan_setting: true
+    selector: |-
+      node-role.kubernetes.io/worker: ''
+#    tolerations:
+#    - key: node-role.kubernetes.io/infra
+#      operator: Equal
+#      value: "true"
+#      effect: NoSchedule
+#    - key: node-role.kubernetes.io/infra
+#      operator: Equal
+#      value: "true"
+#      effect: NoExecute
+    scan_profile:
+    - name: ocp4-stig
+    - name: rhcos4-stig
