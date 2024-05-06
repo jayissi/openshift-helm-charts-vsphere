@@ -14,30 +14,4 @@ spec:
       allowedSourceRanges:
       - "0.0.0.0/0"
 {{ end }}
-      dnsManagementPolicy: Managed
-      providerParameters:
-        aws:
-          type: NLB
-        type: AWS
-      scope: Internal
-    type: LoadBalancerService
-{{ if .Values.enable_external_load_balancer }}
-  routeSelector:
-    matchExpressions:
-      - key: momot.router
-        operator: NotIn
-        values:
-          - external
-{{ end }}
   domain: apps.{{ .Values.cluster_name }}.{{ .Values.base_domain }}
-  nodePlacement:
-    nodeSelector:
-      matchLabels:
-        node-role.kubernetes.io/infra: ""
-    tolerations:
-    - effect: NoSchedule
-      key: infra
-      value: reserved
-    - effect: NoExecute
-      key: infra
-      value: reserved

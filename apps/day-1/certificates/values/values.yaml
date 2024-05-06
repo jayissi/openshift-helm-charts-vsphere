@@ -2,6 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-base_domain: momot.internal.cms.gov
+cluster_name:
+base_domain:
 enable_external_load_balancer: false
 openshift_version:
