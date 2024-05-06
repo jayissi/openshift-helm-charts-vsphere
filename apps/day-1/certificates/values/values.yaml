@@ -1,0 +1,7 @@
+# Default values for custom-console.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+base_domain: momot.internal.cms.gov
+enable_external_load_balancer: false
+openshift_version:
