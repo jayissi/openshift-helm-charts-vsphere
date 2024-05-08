@@ -5,3 +5,19 @@ roles:
   - collect-audit-logs
   - collect-application-logs
   - collect-infrastructure-logs
+
+splunks:
+  - name: splunk-2
+    fqdn: 'http://mgmisbspk002.mcip.usmc.mil:8088'
+    secret: vector-splunk-hec-token
+    inputRefs:
+#      - audit
+      - application
+      - infrastructure
+  - name: splunk-3
+    fqdn: 'http://mgmisbspk003.mcip.usmc.mil:8088'
+    secret: vector-splunk-hec-token
+    inputRefs:
+      - audit
+#      - application
+#      - infrastructure

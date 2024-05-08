@@ -7,18 +7,20 @@ metadata:
 spec:
   serviceAccountName: splunk
   outputs:
-    - name: splunk-receiver
+  {{- range $splunk := $.Values.splunks }}
+    - name: {{ $splunk.name }}
       secret:
-        name: {{ $.Values.hec_and_ca_secret }}
+        name: {{ $splunk.secret }}
       type: splunk 
-      url: {{ $.Values.splunk_fqdn }}
-      tls: 
-        insecureSkipVerify: false
-  pipelines: 
+      url: {{ $splunk.fqdn }}
+  {{- end }}
+  pipelines:
+  {{- range $splunk := $.Values.splunks }}
     - inputRefs:
-        - audit
-        - application
-        - infrastructure
-      name: splunk-receiver
+      {{- range $inputRef := $splunk.inputRefs }}
+      - {{ print $inputRef }}
+      {{- end }}
+      name: {{ $splunk.name }}
       outputRefs:
-        - splunk-receiver
+        - {{ $splunk.name }}
+  {{- end }}
