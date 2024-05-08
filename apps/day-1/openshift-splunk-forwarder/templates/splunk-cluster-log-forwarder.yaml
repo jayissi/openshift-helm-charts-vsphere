@@ -18,7 +18,7 @@ spec:
   {{- range $splunk := $.Values.splunks }}
     - inputRefs:
       {{- range $inputRef := $splunk.inputRefs }}
-      - {{ print $inputRef }}
+        - {{ print $inputRef }}
       {{- end }}
       name: {{ $splunk.name }}
       outputRefs:
