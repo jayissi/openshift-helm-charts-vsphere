@@ -20,10 +20,11 @@ appProjects:
     gitUsername: openshift.tfs.svc
     gitPassword: '$PAT'
     gitBranch: master
-    valuesFile: values.yaml
+    defaultValuesFile: values.yaml
     applications:
       - name: etcd-encryption
         gitPath: 'non-cluster-specific-acm-policies/etcd-encryption'
+        valuesFile: null
       - name: tls-v1.2-security-profile
         gitPath: 'non-cluster-specific-acm-policies/tls-v1.2-security-profile'
       - name: web-terminal
@@ -34,6 +35,7 @@ appProjects:
         gitPath: 'non-cluster-specific-acm-policies/compliance-operator'
       - name: compliance-scan
         gitPath: 'non-cluster-specific-acm-policies/compliance-scan'
+        valuesFile: null
       - name: rhacs-secure-cluster
         gitPath: 'non-cluster-specific-acm-policies/rhacs-secure-cluster'
       - name: baseline-policy-set

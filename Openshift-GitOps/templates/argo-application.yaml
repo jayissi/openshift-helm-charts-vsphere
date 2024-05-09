@@ -16,7 +16,7 @@ spec:
       recurse: false
     helm:
       valueFiles:
-        - {{ $appProject.valuesFile | default "values.yaml" | squote }}
+        - {{ $application.valuesFile | default $appProject.defaultValuesFile | squote }}
     repoURL: {{ squote $appProject.gitUrl }}
     path: {{ squote $application.gitPath }}
     targetRevision: {{ $appProject.gitBranch | default "main" }}
