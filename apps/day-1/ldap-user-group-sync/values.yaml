@@ -7,3 +7,4 @@ cronjob_schedule: '*/15 * * * *'
 rbac_rules:
   - ad_group: openshift-admins
     ocp_role: cluster-admin
+

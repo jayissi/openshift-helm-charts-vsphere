@@ -1,0 +1,52 @@
+---
+#Refrences
+
+#appProject.name := Name of Argo APP project, namespace
+#appProject.description := Namespace description
+#appProject.DisplayName := Namespace DisplayName
+#appProject.gitUrl := Git URL for application helm charts (should end in ".git")
+#appProject.gitBranch := Git Branch for respective application group (Defaults to "main")
+#appProject.valuesFile := Values file for helm charts (Defaults to values.yaml)
+#appProject.applications := List of applications to deploy into the project
+#appProject.applications.name := UNIQUE Name for argo application
+#appProject.applications.gitPath := Path inside the project gitUrl to the Helm chart
+
+
+appProjects:
+  - name: isb-baseline
+    description: "ACM policies for each OpenShift cluster"
+    displayName: "Baseline ACM Policies"
+    gitUrl: 'https://tfs.mcicom.usmc.mil/SoftwareSystems/OpenShift/_git/OpenShift'
+    gitUsername: openshift.tfs.svc
+    gitPassword: '$PAT'
+    gitBranch: master
+    valuesFile: values.yaml
+    applications:
+      - name: etcd-encryption
+        gitPath: 'non-cluster-specific-acm-policies/etcd-encryption'
+      - name: tls-v1.2-security-profile
+        gitPath: 'non-cluster-specific-acm-policies/tls-v1.2-security-profile'
+      - name: web-terminal
+        gitPath: 'non-cluster-specific-acm-policies/web-terminal'
+      - name: fips-check
+        gitPath: 'non-cluster-specific-acm-policies/fips-check'
+      - name: compliance-operator
+        gitPath: 'non-cluster-specific-acm-policies/compliance-operator'
+      - name: compliance-scan
+        gitPath: 'non-cluster-specific-acm-policies/compliance-scan'
+      - name: rhacs-secure-cluster
+        gitPath: 'non-cluster-specific-acm-policies/rhacs-secure-cluster'
+      - name: baseline-policy-set
+        gitPath: 'non-cluster-specific-acm-policies/baseline-policy-set'
+
+#  # stackrox shared secrets
+#  - name: stackrox
+#    description: "Manage ACM Cluster share stackrox secure cluster secrets (e.g. $central_hostname, $central_port, sensor-tls, etc)"
+#    displayName: "Stackrox Shared Secrets"
+#    gitUrl: 'https://github.com/jayissi/Sandbox-ACM-Policy.git'
+#    gitBranch: main
+#    valuesFile: values.yaml
+#    applications:
+#      - name: shared-secure-cluster-secrets
+#        gitPath: 'managed-clusters/shared-secure-cluster-secrets'
+#

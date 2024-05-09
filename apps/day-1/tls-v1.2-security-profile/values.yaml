@@ -4,7 +4,7 @@ acm_policy_name: tls-v1.2-security-profile
 #
 # policy_namespce defaults to 'default' namespace
 #
-policy_namespace: acm-policy
+policy_namespace: default
 
 #
 # remediation_action defaults to 'inform' but, can be set to 'enforce'
