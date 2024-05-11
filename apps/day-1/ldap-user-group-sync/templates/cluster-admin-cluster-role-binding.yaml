@@ -1,14 +1,14 @@
-{{  range $rule := $.Values.rbac_rules }}
+{{  range $rbac_rule := $.Values.rbac_rules }}
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: isb-ad-ldaps-openshift-cluster-admin
+  name: ldaps-openshift-cluster-admin
 subjects:
   - kind: Group
-    name: {{ $rule.ad_group }}           
+    name: {{ $rbac_rule.ad_group }}           
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ $rule.ocp_role }}      
+  name: {{ $rbac_rule.ocp_role }}      
 {{ end }}

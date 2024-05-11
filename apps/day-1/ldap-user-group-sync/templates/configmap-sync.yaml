@@ -16,7 +16,7 @@ data:
     ca: /etc/ldap-ca/ca.crt
     augmentedActiveDirectory:
       groupsQuery:
-        baseDN: {{ $.Values.baseDN | squote }}
+        baseDN: {{ $.Values.groupBaseDN | default $.Values.bindDN | squote }}
         scope: sub
         derefAliases: never
         pageSize: 0
@@ -24,10 +24,10 @@ data:
       groupNameAttributes: [ cn ]
       groupMembershipAttributes: [ memberOf ]
       usersQuery:
-        baseDN: {{ $.Values.baseDN | squote }}
+        baseDN: {{ $.Values.usersBaseDN | default $.Values.bindDN | squote }}
         scope: sub
         derefAliases: never
         filter: (objectclass=person)
         pageSize: 0
       userUIDAttribute: dn
-      userNameAttributes: [ sAMAccountName ]
+      userNameAttributes: [ {{ $.Values.preferredUsername | default "uid" }} ]
