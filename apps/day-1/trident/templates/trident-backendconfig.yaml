@@ -8,8 +8,8 @@ spec:
   version: 1
   backendName: mgm_backend
   storageDriverName: ontap-nas
-  managementLIF: {{ $.Values.management_lif }}
-  dataLIF: {{ $.Values.data_lif }}
+  managementLIF: {{ print $.Values.management_lif }}
+  dataLIF: {{ print $.Values.data_lif }}
   svm: {{ $.Values.svm }}
   credentials:
     name: netapp-{{ $.Values.svm }}-svc
