@@ -5,12 +5,6 @@ metadata:
   name: {{ $.Values.acm_policy_name }}
   namespace: {{ $.Values.policy_namespace | default "default" }}
 spec:
-  dependencies:
-    - apiVersion: policy.open-cluster-management.io/v1
-      kind: ConfigurationPolicy
-      name: rhacs-operator-status
-      namespace: ""
-      compliance: Compliant
   disabled: false
   remediationAction: {{ $.Values.remediation_action | default "inform" }}
   policy-templates:
@@ -32,7 +26,7 @@ spec:
                   namespace: stackrox
                 spec:
                   centralEndpoint: >-
-                      {{ `{{ (lookup "route.openshift.io/v1" "Route" "stackrox" "central").spec.host }}` }}:443
+                      {{ `{{hub (lookup "route.openshift.io/v1" "Route" "stackrox" "central").spec.host hub}}` }}:443
                   clusterName: >-
                     {{ `{{ fromSecret "open-cluster-management-agent" "hub-kubeconfig-secret" "cluster-name" | base64dec }}` }}
                   auditLogs:
