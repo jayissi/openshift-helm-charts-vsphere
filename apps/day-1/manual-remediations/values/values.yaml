@@ -6,5 +6,6 @@ whitelist_internal_registry: true
 enable_image_whitelist: false
 
 cluster_banner:
-  backgroundColor: '#0071BC' # blue
+  backgroundColor: '#ee0000' # Red Hat red
+  #backgroundColor: '#0071BC' # blue
   textColor: '#FFFFFF' # white
